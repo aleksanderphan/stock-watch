@@ -7,6 +7,16 @@ export default function Home() {
     new Date(2025, 0, 2),
     new Date(2025, 0, 8),
     new Date(2025, 0, 10),
+    new Date(2025, 1, 12),
+    new Date(2025, 1, 21),
+    new Date(2025, 2, 5),
+    new Date(2025, 2, 14),
+    new Date(2025, 2, 15),
+    new Date(2025, 2, 19),
+    new Date(2025, 2, 20),
+    new Date(2025, 2, 25),
+    new Date(2025, 2, 26),
+    new Date(2025, 2, 27),
   ];
 
   return (

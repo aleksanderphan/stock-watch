@@ -19,7 +19,7 @@ function Header() {
   if (!mounted) return null; 
 
   return (
-    <div className="w-full rounded-full border-t border-gray-200 bg-gradient-to-b from-gray-100 to-transparent bg-clip-padding p-8 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter dark:border-white/[.8] dark:bg-gradient-to-b dark:from-gray-500/[.10]">
+    <div className="w-full rounded-lg border-t border-gray-200 bg-gradient-to-b from-gray-100 to-transparent bg-clip-padding p-8 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter dark:border-white/[.8] dark:bg-gradient-to-b dark:from-gray-500/[.10] sticky top-0">
       <div className="flex justify-between items-center">
         <p className="text-left font-semibold text-black dark:text-white">
           Stock Watch
