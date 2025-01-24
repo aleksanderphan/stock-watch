@@ -20,9 +20,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
+    <div className="grid min-h-screen items-center justify-items-center gap-20 pb-20 font-[family-name:var(--font-geist-sans)]">
       <Header />
       <Calendar dividendDates={dividendDates} />
+      <p className='text-center text-gray-400 bg-white p-1 dark:bg-gray-800'> Work in Progress. 👷‍♀️</p>
     </div>
   );
 }

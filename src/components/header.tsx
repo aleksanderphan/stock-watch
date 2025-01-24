@@ -19,18 +19,25 @@ function Header() {
   if (!mounted) return null; 
 
   return (
-    <div className="w-full rounded-lg border-t border-gray-200 bg-gradient-to-b from-gray-100 to-transparent bg-clip-padding p-8 backdrop-blur backdrop-contrast-100 backdrop-saturate-100 backdrop-filter dark:border-white/[.8] dark:bg-gradient-to-b dark:from-gray-500/[.10] sticky top-0">
+    <div className="w-full bg-white p-6 border-b border-[#121212]/[.3] dark:border-white/[.5] dark:bg-[#121212]">
       <div className="flex justify-between items-center">
-        <p className="text-left font-semibold text-black dark:text-white">
+        <p className="text-left text-black dark:text-white font-extrabold">
           Stock Watch
         </p>
+
         <div className="flex items-center space-x-4">
-          <p className="text-black hover:cursor-pointer hover:underline dark:text-white">
+          <p className="text-black hover:cursor-pointer font-semibold hover:underline dark:text-white">
             {time.toLocaleTimeString()}
           </p>
 
-          <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}> TEST </button>
+          <label className="flex items-center cursor-pointer">
+            <input type="checkbox" className="hidden" onChange={() => setTheme(theme === "light" ? "dark" : "light")} checked={theme === "dark"} />
+            <span className="relative w-12 h-6 bg-gray-300 dark:bg-[#1E1E1E] rounded-full">
+              <span className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-black dark:bg-white transition-transform ${theme === "dark" ? "translate-x-6" : ""}`} />
+            </span>
+          </label>
         </div>
+
       </div>
     </div>
   );

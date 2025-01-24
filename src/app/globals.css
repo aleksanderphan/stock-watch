@@ -9,8 +9,8 @@ html {
 }
 
 :root {
-  --background-color: #fff;
-  --background-image: radial-gradient(circle, #000 1px, transparent 1px);
+  --background-color: #F5F5F5;
+  /* --background-image: radial-gradient(circle, #727D73 1px, transparent 1px); */
   --background-size: 35px 35px;
 }
 
@@ -24,6 +24,6 @@ body {
 }
 
 .dark {
-  --background-color: #000;
-  --background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  --background-color: #121212;
+  /* --background-image: radial-gradient(circle, #FFF2C2 1px, transparent 1px); */
 }
