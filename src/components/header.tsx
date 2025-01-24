@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { Switch } from "@/components/ui/switch"
 
 function Header() {
   const [time, setTime] = useState(new Date());
@@ -19,7 +20,7 @@ function Header() {
   if (!mounted) return null; 
 
   return (
-    <div className="w-full bg-white p-6 border-b border-[#121212]/[.3] dark:border-white/[.5] dark:bg-[#121212]">
+    <div className="w-full mb-20 bg-white p-6 border-b border-[#121212]/[.3] dark:border-white/[.5] dark:bg-[#121212]">
       <div className="flex justify-between items-center">
         <p className="text-left text-black dark:text-white font-extrabold">
           Stock Watch
@@ -30,14 +31,8 @@ function Header() {
             {time.toLocaleTimeString()}
           </p>
 
-          <label className="flex items-center cursor-pointer">
-            <input type="checkbox" className="hidden" onChange={() => setTheme(theme === "light" ? "dark" : "light")} checked={theme === "dark"} />
-            <span className="relative w-12 h-6 bg-gray-300 dark:bg-[#1E1E1E] rounded-full">
-              <span className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-black dark:bg-white transition-transform ${theme === "dark" ? "translate-x-6" : ""}`} />
-            </span>
-          </label>
+          <Switch onClick={() => setTheme(theme === "light" ? "dark" : "light")} />
         </div>
-
       </div>
     </div>
   );

@@ -2,12 +2,18 @@
 import React, { useState } from "react";
 import { DayPicker } from "react-day-picker";
 
-function Calendar(props: { dividendDates: Date[] }) {
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+  className?: string;
+  modifiers?: Record<string, Date[]>;
+};
+
+function Calendar({ className, modifiers, ...props }: CalendarProps) {
   const [selected, setSelected] = useState<Date>();
-  const { dividendDates } = props;
 
   return (
     <DayPicker
+      {...props}
+      className={className}
       hideNavigation
       defaultMonth={new Date()}
       startMonth={new Date(new Date().getFullYear(), 0)}
@@ -25,14 +31,10 @@ function Calendar(props: { dividendDates: Date[] }) {
         month: `bg-white dark:bg-[#1E1E1E] rounded-md overflow-auto p-2 drop-shadow-md`,
         day: `p-1 sm:p-2 font-semibold`,
       }}
-      modifiers={{
-        divDates: dividendDates,
-      }}
-      modifiersClassNames={{
-        divDates: `text-green-500 font-black bg-slate-300 dark:bg-gray-800 rounded-md`,
-      }}
+      modifiers={modifiers}
     />
   );
 }
+Calendar.displayName = "Calendar";
 
-export default Calendar;
+export { Calendar };
