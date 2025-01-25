@@ -2,15 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+* {
   transition:
     background-color 0.5s,
-    color 0.5s;
 }
 
 :root {
   --background-color: #F5F5F5;
-  /* --background-image: radial-gradient(circle, #727D73 1px, transparent 1px); */
   --background-size: 35px 35px;
 }
 
