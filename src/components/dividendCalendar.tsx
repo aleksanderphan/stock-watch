@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import DividendDataTable from "./dividendDataTable";
 
 function DividendCalendar(props: { dividendDates: Date[] }) {
   const [selected, setSelected] = useState<Date>();
@@ -11,6 +12,16 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
     return dividendDates.some(divDate =>
       date.toDateString() === divDate.toDateString()
     );
+  };
+
+  const getDividendDetails = (date: Date) => {
+    // TODO: Filter data sesuai tanggal
+    return [
+      { id: 1, ticker: "BBRI", exDate: new Date(2025, 0, 2).toLocaleDateString(), divYield: "2.05%", dividend: "84", price: 4090 },
+      { id: 2, ticker: "BSSR", exDate: new Date(2025, 0, 8).toLocaleDateString(), divYield: "2.68%", dividend: "WORK", price: 4420 },
+      { id: 3, ticker: "IPCM", exDate: new Date(2025, 0, 8).toLocaleDateString(), divYield: "1.42%", dividend: "IN", price: 268 },
+      { id: 4, ticker: "SDRA", exDate: new Date(2025, 0, 10).toLocaleDateString(), divYield: "4.99%", dividend: "PROGRESS", price: 384 },
+    ];
   };
 
   return (
@@ -51,13 +62,9 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Dividend Details</DialogTitle>
-              <DialogDescription>
-                <p className="text-lg">
-                  Date: {selected.toDateString()}.
-                </p>
-              </DialogDescription>
+              <DialogTitle>Dividend Date Details</DialogTitle>
             </DialogHeader>
+            <DividendDataTable data={getDividendDetails(selected)} />
           </DialogContent>
         </Dialog>
       )}
