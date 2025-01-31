@@ -16,6 +16,7 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
 
   const getDividendDetails = (date: Date) => {
     // TODO: Filter data sesuai tanggal
+    console.log(date);
     return [
       { id: 1, ticker: "BBRI", exDate: new Date(2025, 0, 2).toLocaleDateString(), divYield: "2.05%", dividend: "84", price: 4090 },
       { id: 2, ticker: "BSSR", exDate: new Date(2025, 0, 8).toLocaleDateString(), divYield: "2.68%", dividend: "WORK", price: 4420 },
