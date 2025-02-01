@@ -30,7 +30,7 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
       <Calendar
         className="mb-20"
         hideNavigation
-        defaultMonth={new Date()}
+        defaultMonth={new Date(new Date().getFullYear(), 0)}
         startMonth={new Date(new Date().getFullYear(), 0)}
         endMonth={new Date(new Date().getFullYear(), 11)}
         numberOfMonths={12}
