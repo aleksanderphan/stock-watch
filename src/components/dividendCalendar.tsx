@@ -1,29 +1,37 @@
-"use client";
-import React, { useState } from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 import DividendDataTable from "./dividendDataTable";
 
 function DividendCalendar(props: { dividendDates: Date[] }) {
   const [selected, setSelected] = useState<Date>();
+  const [dividendDetails, setDividendDetails] = useState<{ id: number; ticker: string; exDate: string; yield: string; dividend: string; price: number }[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const { dividendDates } = props;
 
   const isDividendDate = (date: Date) => {
-    return dividendDates.some(divDate =>
-      date.toDateString() === divDate.toDateString()
-    );
+    return dividendDates.some((divDate) => date.toDateString() === divDate.toDateString());
   };
 
-  const getDividendDetails = (date: Date) => {
-    // TODO: Filter data sesuai tanggal
-    console.log(date);
-    return [
-      { id: 1, ticker: "BBRI", exDate: new Date(2025, 0, 2).toLocaleDateString(), divYield: "2.05%", dividend: "84", price: 4090 },
-      { id: 2, ticker: "BSSR", exDate: new Date(2025, 0, 8).toLocaleDateString(), divYield: "2.68%", dividend: "WORK", price: 4420 },
-      { id: 3, ticker: "IPCM", exDate: new Date(2025, 0, 8).toLocaleDateString(), divYield: "1.42%", dividend: "IN", price: 268 },
-      { id: 4, ticker: "SDRA", exDate: new Date(2025, 0, 10).toLocaleDateString(), divYield: "4.99%", dividend: "PROGRESS", price: 384 },
-    ];
+  const getDividendDetails = async (date: Date) => {
+    const response = await fetch(`/api/stock?date=${date.toISOString()}`);
+    const data = await response.json();
+  
+    console.log(data);
+    return data;
   };
+
+  useEffect(() => {
+    if (selected && isDividendDate(selected)) {
+      setLoading(true); 
+      getDividendDetails(selected).then((data) => {
+        setDividendDetails(data);
+        setLoading(false);
+      });
+    }
+  }, [selected]);
 
   return (
     <div>
@@ -36,9 +44,7 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
         numberOfMonths={12}
         mode="single"
         selected={selected}
-        onSelect={(date) => {
-          setSelected(date);
-        }}
+        onSelect={(date) => setSelected(date)}
         classNames={{
           month_caption: `py-4 font-semibold`,
           selected: `text-amber-400 dark:drop-shadow-[0_1.5px_1.5px_rgba(125,125,125)]`,
@@ -65,7 +71,15 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
             <DialogHeader>
               <DialogTitle>Dividend Date Details</DialogTitle>
             </DialogHeader>
-            <DividendDataTable data={getDividendDetails(selected)} />
+            {loading ? (
+              <div className="space-y-4">
+                <Skeleton className="w-full h-12 rounded-xl" />
+              </div>
+            ) : dividendDetails.length > 0 ? (
+              <DividendDataTable data={dividendDetails} />
+            ) : (
+              <p className="text-center">No dividend data available yet for this date.</p>
+            )}
           </DialogContent>
         </Dialog>
       )}
