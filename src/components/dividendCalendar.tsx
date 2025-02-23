@@ -1,9 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import { Calendar } from "@/components/ui/calendar";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Skeleton } from "@/components/ui/skeleton";
-import DividendDataTable from "./dividendDataTable";
 import DividendDialog from "./dividendDialog";
 
 function DividendCalendar(props: { dividendDates: Date[] }) {
