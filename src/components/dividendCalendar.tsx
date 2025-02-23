@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import DividendDialog from "./dividendDialog";
 
@@ -14,9 +14,9 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
     setToday(new Date());
   }, []);
 
-  const isDividendDate = (date: Date) => {
+  const isDividendDate = useCallback((date: Date) => {
     return dividendDates.some((divDate) => date.toDateString() === divDate.toDateString());
-  };
+  }, [dividendDates]);
 
   const getDividendDetails = async (date: Date) => {
     const response = await fetch(`/api/stock?date=${date.toISOString()}`);
@@ -28,13 +28,13 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
 
   useEffect(() => {
     if (selected && isDividendDate(selected)) {
-      setLoading(true); 
+      setLoading(true);
       getDividendDetails(selected).then((data) => {
         setDividendDetails(data);
         setLoading(false);
       });
     }
-  }, [selected]);
+  }, [selected, isDividendDate]);  
 
   return (
     <div>
