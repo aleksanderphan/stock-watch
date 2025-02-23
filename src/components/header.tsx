@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { Switch } from "@/components/ui/switch"
+import { Sun, Moon } from "lucide-react";
 
 function Header() {
   const [time, setTime] = useState(new Date());
@@ -31,7 +31,12 @@ function Header() {
             {time.toLocaleTimeString()}
           </p>
 
-          <Switch onClick={() => setTheme(theme === "light" ? "dark" : "light")} />
+          <button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            className="p-2 rounded-full transition-colors dark:bg-[#1E1E1E] hover:bg-gray-300 dark:hover:bg-gray-600"
+          >
+            {theme === "dark" ? <Sun className="w-6 h-6 text-white" /> : <Moon className="w-6 h-6 text-black" />}
+          </button>
         </div>
       </div>
     </div>

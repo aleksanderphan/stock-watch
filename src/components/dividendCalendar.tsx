@@ -4,12 +4,18 @@ import { Calendar } from "@/components/ui/calendar";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import DividendDataTable from "./dividendDataTable";
+import DividendDialog from "./dividendDialog";
 
 function DividendCalendar(props: { dividendDates: Date[] }) {
   const [selected, setSelected] = useState<Date>();
+  const [today, setToday] = useState<Date | null>(null);
   const [dividendDetails, setDividendDetails] = useState<{ id: number; ticker: string; exDate: string; yield: string; dividend: string; price: number }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const { dividendDates } = props;
+
+  useEffect(() => {
+    setToday(new Date());
+  }, []);
 
   const isDividendDate = (date: Date) => {
     return dividendDates.some((divDate) => date.toDateString() === divDate.toDateString());
@@ -38,7 +44,7 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
       <Calendar
         className="mb-20"
         hideNavigation
-        defaultMonth={new Date(new Date().getFullYear(), 0)}
+        defaultMonth={today ?? new Date(new Date().getFullYear(), 0)}
         startMonth={new Date(new Date().getFullYear(), 0)}
         endMonth={new Date(new Date().getFullYear(), 11)}
         numberOfMonths={12}
@@ -58,30 +64,17 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
           divDates: dividendDates,
         }}
         modifiersClassNames={{
-          divDates: `text-green-500 font-black bg-slate-300 dark:bg-gray-800 rounded-md`,
+          divDates: `text-green-600 font-black bg-slate-200 dark:bg-gray-800 rounded-md`,
         }}
       />
 
       {selected && isDividendDate(selected) && (
-        <Dialog open={!!selected} onOpenChange={() => setSelected(undefined)}>
-          <DialogTrigger asChild>
-            <button className="hidden" aria-hidden="true" />
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Dividend Date Details</DialogTitle>
-            </DialogHeader>
-            {loading ? (
-              <div className="space-y-4">
-                <Skeleton className="w-full h-12 rounded-xl" />
-              </div>
-            ) : dividendDetails.length > 0 ? (
-              <DividendDataTable data={dividendDetails} />
-            ) : (
-              <p className="text-center">No dividend data available yet for this date.</p>
-            )}
-          </DialogContent>
-        </Dialog>
+        <DividendDialog 
+        selected={selected} 
+        loading={loading} 
+        dividendDetails={dividendDetails} 
+        onClose={() => setSelected(undefined)} 
+      />
       )}
     </div>
   );
