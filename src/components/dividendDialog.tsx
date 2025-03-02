@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import DividendDataTable from "./dividendDataTable";
@@ -22,6 +22,17 @@ interface DialogComponentProps {
 }
 
 function DividendDialog({ selected, loading, dividendDetails, onClose }: DialogComponentProps) {
+  const [timeoutReached, setTimeoutReached] = useState(false);
+
+  useEffect(() => {
+    if (loading) {
+      const timer = setTimeout(() => setTimeoutReached(true), 5000);
+      return () => clearTimeout(timer);
+    } else {
+      setTimeoutReached(false); 
+    }
+  }, [loading]);
+
   return (
     <Dialog open={!!selected} onOpenChange={onClose}>
       <DialogTrigger asChild>
@@ -31,7 +42,7 @@ function DividendDialog({ selected, loading, dividendDetails, onClose }: DialogC
         <DialogHeader>
           <DialogTitle>Dividend Date Details</DialogTitle>
         </DialogHeader>
-        {loading ? (
+        {loading && !timeoutReached ? (
           <div className="space-y-4">
             <Skeleton className="w-full h-12 rounded-xl" />
           </div>
