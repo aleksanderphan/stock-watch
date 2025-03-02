@@ -23,7 +23,7 @@ export default function Home() {
     <div className="grid min-h-screen items-center justify-items-center pb-20 font-[family-name:var(--font-geist-sans)]">
       <Header />
       <DividendCalendar dividendDates={dividendDates} />
-      <p className='text-center text-gray-400 bg-white p-1 dark:bg-gray-800'> Work in Progress. 👷‍♀️</p>
+      <p className='rounded-md text-center text-gray-600 bg-white p-1 dark:bg-gray-900'> Work in Progress. 🔨👷‍♀️</p>
     </div>
   );
 }

@@ -20,7 +20,7 @@ function Header() {
   if (!mounted) return null; 
 
   return (
-    <div className="w-full mb-20 bg-white p-6 border-b border-[#121212]/[.3] dark:border-white/[.5] dark:bg-[#121212]">
+    <div className="w-full mb-20 bg-[#F0F0F0] p-6 border-b border-[#121212]/[.3] dark:border-white/[.5] dark:bg-[#121212]">
       <div className="flex justify-between items-center">
         <p className="text-left text-black dark:text-white font-extrabold">
           Stock Watch

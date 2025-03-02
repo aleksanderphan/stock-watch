@@ -55,7 +55,7 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
           today: `text-blue-500`,
           root: `text-center text-black dark:text-white overflow`,
           months: `grid grid-cols-1 grid-rows-12 sm:grid-cols-2 sm:grid-rows-6 lg:grid-cols-3 lg:grid-rows-4 xl:grid-cols-4 xl:grid-rows-3 2xl:grid-cols-5 2xl:grid-rows-3 gap-4 lg:gap-7`,
-          month: `bg-white dark:bg-[#1E1E1E] rounded-md overflow-auto p-2 drop-shadow-md`,
+          month: `bg-[#F0F0F0] dark:bg-[#1E1E1E] rounded-md overflow-auto p-2 drop-shadow-md shadow-[0px_10px_20px_0px_rgba(0,_0,_0,_0.1)] dark:shadow-[0px_8px_24px_-4px_rgba(255,_255,_255,_0.1)]`,
           day: `p-1 sm:p-2 font-semibold`,
         }}
         modifiers={{
