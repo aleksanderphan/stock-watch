@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import DividendDialog from "./dividendDialog";
-import { getToday } from "@/lib/utils";
 
 function DividendCalendar(props: { dividendDates: Date[] }) {
   const [selected, setSelected] = useState<Date>();
@@ -12,7 +11,11 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
   const { dividendDates } = props;
 
   useEffect(() => {
-    setToday(getToday);
+    const interval = setInterval(() => {
+      setToday(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const isDividendDate = useCallback((date: Date) => {
