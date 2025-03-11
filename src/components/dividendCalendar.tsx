@@ -6,6 +6,7 @@ import DividendDialog from "./dividendDialog";
 function DividendCalendar(props: { dividendDates: Date[] }) {
   const [selected, setSelected] = useState<Date>();
   const [today, setToday] = useState<Date | null>(null);
+  const [mounted, setMounted] = useState(false);
   const [dividendDetails, setDividendDetails] = useState<{ id: number; ticker: string; exDate: string; yield: string; dividend: string; price: number }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const { dividendDates } = props;
@@ -15,14 +16,16 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
       setToday(new Date());
     }, 1000);
 
+    setMounted(true)
     return () => clearInterval(interval);
-  }, []);
+  }, []);  
 
   const isDividendDate = useCallback((date: Date) => {
     return dividendDates.some((divDate) => date.toDateString() === divDate.toDateString());
   }, [dividendDates]);
 
   const getDividendDetails = async (date: Date) => {
+    // TODO: Filter data based on date
     const response = await fetch(`/api/stock?date=${date.toISOString()}`);
     const data = await response.json();
   
@@ -39,6 +42,8 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
       });
     }
   }, [selected, isDividendDate]);  
+
+  if (!mounted) return null; 
 
   return (
     <div>

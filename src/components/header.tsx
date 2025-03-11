@@ -4,8 +4,8 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
 function Header() {
-  const [time, setTime] = useState(new Date());
   const { theme, setTheme } = useTheme();
+  const [time, setTime] = useState(new Date());
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
