@@ -7,14 +7,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   switch (req.method) {
     case "GET": {
-      const { exDate } = req.query;
+      try {
+        const dividendDates = await Stock.distinct('exDate');
 
-      if (!exDate || typeof exDate !== "string") {
-        return res.status(400).json({ message: "Missing or invalid 'exDate' query parameter" });
+        const formattedDividendDates = dividendDates.map(date => new Date(date));
+
+        return res.status(200).json(formattedDividendDates);
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Error retrieving dividend dates" });
       }
-
-      const stocks = await Stock.collection.find({ exDate }).toArray();
-      return res.status(200).json(stocks);
     }
     default:
       return res.status(405).json({ message: "Method not allowed" });

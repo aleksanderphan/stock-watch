@@ -134,3 +134,8 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.rdp-outside {
+  background: none !important;
+  pointer-events: none; 
+}

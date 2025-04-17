@@ -20,7 +20,7 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
   }, [dividendDates]);
 
   const getDividendDetails = async (date: Date) => {
-    const response = await fetch(`/api/stock?date=${date.toISOString()}`);
+    const response = await fetch(`/api/stock?exDate=${date.toLocaleDateString("en-CA")}`);
     const data = await response.json();
   
     console.log(data);
@@ -49,6 +49,7 @@ function DividendCalendar(props: { dividendDates: Date[] }) {
         mode="single"
         selected={selected}
         onSelect={(date) => setSelected(date)}
+        showOutsideDays={false}
         classNames={{
           month_caption: `py-4 font-semibold`,
           selected: `text-amber-400 dark:drop-shadow-[0_1.5px_1.5px_rgba(125,125,125)]`,
